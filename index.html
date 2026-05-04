@@ -1,1 +1,404 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منافذ روبلوكس - عتوي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.8s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .header h1 {
+            color: #667eea;
+            font-size: 40px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            animation: fadeInDown 1s ease;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 16px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+        
+        .tab-btn {
+            padding: 12px 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #999;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+        
+        .tab-btn:hover {
+            color: #667eea;
+        }
+        
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .apps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .app-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+            transition: all 0.4s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.5s ease;
+        }
+        
+        .app-card:hover::before {
+            left: 100%;
+        }
+        
+        .app-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.4);
+        }
+        
+        .app-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .app-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .app-description {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .download-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .download-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .script-box {
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+        
+        .script-title {
+            color: #333;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .script-code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        
+        .copy-btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 13px;
+        }
+        
+        .copy-btn:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+        
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .footer {
+            text-align: center;
+            border-top: 2px solid #eee;
+            padding-top: 25px;
+            color: #666;
+            font-size: 13px;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        .footer strong {
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 منافذ روبلوكس</h1>
+            <p>استمتع بأفضل الأدوات والنصوص البرمجية</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)">📱 التطبيقات</button>
+            <button class="tab-btn" onclick="switchTab(1)">📜 Atwi Scripts</button>
+        </div>
+        
+        <!-- التطبيقات -->
+        <div class="tab-content active">
+            <div class="apps-grid">
+                <!-- Arceus X -->
+                <div class="app-card">
+                    <div class="app-icon">⚡</div>
+                    <div class="app-name">هاك ارسيوس اكس</div>
+                    <div class="app-description">
+                        منفذ احترافي لروبلوكس مع ميزات متقدمة وأداء سلس
+                    </div>
+                    <a href="https://github.com/SPDMTiahh/Updates/releases/download/2.1.8/Roblox.Arceus.X.NEO.2.1.8.apk" download class="download-btn">تحميل Android</a>
+                </div>
+                
+                <!-- Delta Android -->
+                <div class="app-card">
+                    <div class="app-icon">⚙️</div>
+                    <div class="app-name">هاك دلتا للاندرويد</div>
+                    <div class="app-description">
+                        منفذ قوي وموثوق لروبلوكس مع أحدث تحديثات الأمان
+                    </div>
+                    <a href="https://delta.filenetwork.vip/file/Delta-2.718.1110-02.apk" download class="download-btn">تحميل Android</a>
+                </div>
+                
+                <!-- Delta iPhone -->
+                <div class="app-card">
+                    <div class="app-icon">🍎</div>
+                    <div class="app-name">هاك دلتا للايفون</div>
+                    <div class="app-description">
+                        منفذ ديلتا المميز لأجهزة الآيفون والآيباد
+                    </div>
+                    <a href="itms-services://?action=download-manifest&url=https://delta.bz/manifest.plist" class="download-btn">تحميل iOS</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Atwi Scripts -->
+        <div class="tab-content">
+            <div class="script-box">
+                <div class="script-title">
+                    <span>📝</span> Atwi Premium Level 8
+                </div>
+                <div class="script-code">local p = game.Players.LocalPlayer
+if p.Backpack:FindFirstChild("ANTIXPLOIT") then
+    p.Backpack.ANTIXPLOIT:Remove()
+end
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/SpdmXDev/AtwiPremiumLevel8/main/AtwiPremium8.txt"))()</div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">📋 نسخ النص</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>© 2026 عتوي - جميع الحقوق محفوظة</strong></p>
+            <p>منافذ روبلوكس المتخصصة</p>
+        </div>
+    </div>
+    
+    <script>
+        function switchTab(index) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            tabs[index].classList.add('active');
+            contents[index].classList.add('active');
+        }
+        
+        function copyToClipboard(btn) {
+            const scriptCode = document.querySelector('.script-code').textContent;
+            navigator.clipboard.writeText(scriptCode).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = '✅ تم النسخ!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+  </html>
