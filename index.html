@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منافذ روبلوكس - عتوي</title>
+    <title>Roblox Executors - Atwi</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,19 +22,673 @@
             overflow-x: hidden;
         }
         
+        /* Language Selection Screen */
+        .language-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .language-screen.hidden {
+            display: none;
+        }
+        
+        .language-container {
+            text-align: center;
+            animation: slideInUp 0.8s ease;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .language-container h1 {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00d4ff, #0099ff, #6f00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .language-container p {
+            color: #aaa;
+            font-size: 18px;
+            margin-bottom: 50px;
+        }
+        
+        .language-buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .lang-btn {
+            padding: 20px 50px;
+            font-size: 20px;
+            font-weight: 700;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        
+        .lang-btn.english {
+            background: linear-gradient(135deg, #0099ff, #00d4ff);
+            box-shadow: 0 0 30px rgba(0, 153, 255, 0.5);
+        }
+        
+        .lang-btn.english:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 50px rgba(0, 153, 255, 0.8);
+        }
+        
+        .lang-btn.arabic {
+            background: linear-gradient(135deg, #ff006e, #6f00ff);
+            box-shadow: 0 0 30px rgba(111, 0, 255, 0.5);
+        }
+        
+        .lang-btn.arabic:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 50px rgba(111, 0, 255, 0.8);
+        }
+        
+        .lang-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* RGB Border Animation */
+        .rgb-border {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .rgb-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000);
+            background-size: 200% 100%;
+            animation: rgbSlide 3s linear infinite;
+        }
+        
+        .rgb-border::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #0000ff, #ff0000, #00ff00, #0000ff);
+            background-size: 200% 100%;
+            animation: rgbSlide 3s linear infinite reverse;
+        }
+        
+        @keyframes rgbSlide {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+        
+        .rgb-left {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #ff0000, #00ff00, #0000ff, #ff0000);
+            background-size: 100% 200%;
+            animation: rgbSlide 3s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .rgb-right {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #0000ff, #ff0000, #00ff00, #0000ff);
+            background-size: 100% 200%;
+            animation: rgbSlide 3s linear infinite reverse;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Main Container */
         .container {
-            background: white;
+            background: rgba(15, 20, 40, 0.95);
             border-radius: 20px;
             padding: 50px;
             max-width: 900px;
             width: 100%;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
             animation: slideIn 0.8s ease;
+            border: 2px solid rgba(0, 153, 255, 0.2);
+            position: relative;
+            z-index: 10;
         }
         
         @keyframes slideIn {
             from {
                 opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .header h1 {
+            background: linear-gradient(135deg, #00d4ff, #0099ff, #6f00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 40px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            animation: fadeInDown 1s ease;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header p {
+            color: #aaa;
+            font-size: 16px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(0, 153, 255, 0.3);
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+        
+        .tab-btn {
+            padding: 12px 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+        
+        .tab-btn:hover {
+            color: #00d4ff;
+        }
+        
+        .tab-btn.active {
+            color: #00d4ff;
+            border-bottom-color: #00d4ff;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .apps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .app-card {
+            background: linear-gradient(135deg, rgba(0, 99, 255, 0.2), rgba(111, 0, 255, 0.2));
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+            transition: all 0.4s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .app-card:hover::before {
+            left: 100%;
+        }
+        
+        .app-card:hover {
+            transform: translateY(-15px);
+            border-color: #00d4ff;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+        
+        .app-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .app-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .app-description {
+            font-size: 13px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #aaa;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #0099ff, #00d4ff);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 15px rgba(0, 153, 255, 0.4);
+        }
+        
+        .download-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
+        }
+        
+        .download-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .script-box {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #00d4ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease 0.6s both;
+            border: 2px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .script-title {
+            color: #00d4ff;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .script-code {
+            background: #0a0e27;
+            color: #00ff88;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, #00d4ff, #6f00ff);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+        
+        .copy-btn:hover {
+            box-shadow: 0 0 25px rgba(111, 0, 255, 0.5);
+            transform: scale(1.05);
+        }
+        
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .footer {
+            text-align: center;
+            border-top: 2px solid rgba(0, 153, 255, 0.2);
+            padding-top: 25px;
+            color: #888;
+            font-size: 13px;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        .footer strong {
+            color: #00d4ff;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .language-container h1 {
+                font-size: 36px;
+            }
+            
+            .lang-btn {
+                padding: 15px 35px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- RGB Borders -->
+    <div class="rgb-border"></div>
+    <div class="rgb-left"></div>
+    <div class="rgb-right"></div>
+    
+    <!-- Language Selection Screen -->
+    <div class="language-screen" id="languageScreen">
+        <div class="language-container">
+            <h1>🎮 Atwi Executors</h1>
+            <p>Select Your Language</p>
+            <div class="language-buttons">
+                <button class="lang-btn english" onclick="selectLanguage('en')">🇬🇧 English</button>
+                <button class="lang-btn arabic" onclick="selectLanguage('ar')">🇸🇦 العربية</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="container" id="mainContent" style="display: none;">
+        <div class="header">
+            <h1 id="mainTitle">🎮 Roblox Executors</h1>
+            <p id="mainSubtitle">Enjoy the best tools and script codes</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)" id="tab1Name">📱 Applications</button>
+            <button class="tab-btn" onclick="switchTab(1)" id="tab2Name">📜 Atwi Scripts</button>
+        </div>
+        
+        <!-- Applications -->
+        <div class="tab-content active">
+            <div class="apps-grid">
+                <!-- Arceus X -->
+                <div class="app-card">
+                    <div class="app-icon">⚡</div>
+                    <div class="app-name" id="app1Name">Arceus X Executor</div>
+                    <div class="app-description" id="app1Desc">
+                        Professional Roblox executor with advanced features and smooth performance
+                    </div>
+                    <a href="https://github.com/SPDMTiahh/Updates/releases/download/2.1.8/Roblox.Arceus.X.NEO.2.1.8.apk" download class="download-btn" id="app1Btn">Download Android</a>
+                </div>
+                
+                <!-- Delta Android -->
+                <div class="app-card">
+                    <div class="app-icon">⚙️</div>
+                    <div class="app-name" id="app2Name">Delta Executor Android</div>
+                    <div class="app-description" id="app2Desc">
+                        Powerful and reliable executor for Roblox with latest security updates
+                    </div>
+                    <a href="https://delta.filenetwork.vip/file/Delta-2.718.1110-02.apk" download class="download-btn" id="app2Btn">Download Android</a>
+                </div>
+                
+                <!-- Delta iPhone -->
+                <div class="app-card">
+                    <div class="app-icon">🍎</div>
+                    <div class="app-name" id="app3Name">Delta Executor iPhone</div>
+                    <div class="app-description" id="app3Desc">
+                        Premium Delta executor for iPhone and iPad devices
+                    </div>
+                    <a href="itms-services://?action=download-manifest&url=https://delta.bz/manifest.plist" class="download-btn" id="app3Btn">Download iOS</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Atwi Scripts -->
+        <div class="tab-content">
+            <div class="script-box">
+                <div class="script-title">
+                    <span>📝</span> <span id="scriptName">Atwi Premium Level 8</span>
+                </div>
+                <div class="script-code">local p = game.Players.LocalPlayer
+if p.Backpack:FindFirstChild("ANTIXPLOIT") then
+    p.Backpack.ANTIXPLOIT:Remove()
+end
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/SpdmXDev/AtwiPremiumLevel8/main/AtwiPremium8.txt"))()</div>
+                <button class="copy-btn" onclick="copyToClipboard(this)" id="copyBtn">📋 Copy Text</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>© 2026 Atwi - All Rights Reserved</strong></p>
+            <p id="footerDesc">Specialized Roblox Executors</p>
+        </div>
+    </div>
+    
+    <script>
+        const translations = {
+            en: {
+                mainTitle: "🎮 Roblox Executors",
+                mainSubtitle: "Enjoy the best tools and script codes",
+                tab1: "📱 Applications",
+                tab2: "📜 Atwi Scripts",
+                app1Name: "Arceus X Executor",
+                app1Desc: "Professional Roblox executor with advanced features and smooth performance",
+                app1Btn: "Download Android",
+                app2Name: "Delta Executor Android",
+                app2Desc: "Powerful and reliable executor for Roblox with latest security updates",
+                app2Btn: "Download Android",
+                app3Name: "Delta Executor iPhone",
+                app3Desc: "Premium Delta executor for iPhone and iPad devices",
+                app3Btn: "Download iOS",
+                scriptName: "Atwi Premium Level 8",
+                copyBtn: "📋 Copy Text",
+                footerDesc: "Specialized Roblox Executors"
+            },
+            ar: {
+                mainTitle: "🎮 منافذ روبلوكس",
+                mainSubtitle: "استمتع بأفضل الأدوات والنصوص البرمجية",
+                tab1: "📱 التطبيقات",
+                tab2: "📜 Atwi Scripts",
+                app1Name: "منفذ ارسيوس اكس",
+                app1Desc: "منفذ احترافي لروبلوكس مع ميزات متقدمة وأداء سلس",
+                app1Btn: "تحميل Android",
+                app2Name: "منفذ دلتا للاندرويد",
+                app2Desc: "منفذ قوي وموثوق لروبلوكس مع أحدث تحديثات الأمان",
+                app2Btn: "تحميل Android",
+                app3Name: "منفذ دلتا للايفون",
+                app3Desc: "منفذ دلتا المميز لأجهزة الآيفون والآيباد",
+                app3Btn: "تحميل iOS",
+                scriptName: "Atwi Premium Level 8",
+                copyBtn: "📋 نسخ النص",
+                footerDesc: "منافذ روبلوكس المتخصصة"
+            }
+        };
+        
+        function selectLanguage(lang) {
+            document.getElementById('languageScreen').classList.add('hidden');
+            document.getElementById('mainContent').style.display = 'block';
+            
+            const html = document.documentElement;
+            html.lang = lang;
+            html.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            updateLanguage(lang);
+            localStorage.setItem('selectedLanguage', lang);
+        }
+        
+        function updateLanguage(lang) {
+            const t = translations[lang];
+            
+            document.getElementById('mainTitle').textContent = t.mainTitle;
+            document.getElementById('mainSubtitle').textContent = t.mainSubtitle;
+            document.getElementById('tab1Name').textContent = t.tab1;
+            document.getElementById('tab2Name').textContent = t.tab2;
+            document.getElementById('app1Name').textContent = t.app1Name;
+            document.getElementById('app1Desc').textContent = t.app1Desc;
+            document.getElementById('app1Btn').textContent = t.app1Btn;
+            document.getElementById('app2Name').textContent = t.app2Name;
+            document.getElementById('app2Desc').textContent = t.app2Desc;
+            document.getElementById('app2Btn').textContent = t.app2Btn;
+            document.getElementById('app3Name').textContent = t.app3Name;
+            document.getElementById('app3Desc').textContent = t.app3Desc;
+            document.getElementById('app3Btn').textContent = t.app3Btn;
+            document.getElementById('scriptName').textContent = t.scriptName;
+            document.getElementById('copyBtn').textContent = t.copyBtn;
+            document.getElementById('footerDesc').textContent = t.footerDesc;
+        }
+        
+        function switchTab(index) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            tabs[index].classList.add('active');
+            contents[index].classList.add('active');
+        }
+        
+        function copyToClipboard(btn) {
+            const scriptCode = document.querySelector('.script-code').textContent;
+            navigator.clipboard.writeText(scriptCode).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+        
+        // Check for saved language preference
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('selectedLanguage');
+            if (savedLang) {
+                selectLanguage(savedLang);
+            }
+        });
+    </script>
+</body>
+</html>                opacity: 0;
                 transform: translateY(30px);
             }
             to {
