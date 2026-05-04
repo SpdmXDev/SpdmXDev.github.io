@@ -12,8 +12,9 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: Arial, sans-serif;
+            background: #0f0f1e;
+            color: #fff;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -21,47 +22,460 @@
             padding: 20px;
         }
 
-        /* Language Screen */
-        #languageScreen {
+        .lang-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: #0f0f1e;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            z-index: 999;
         }
 
-        #languageScreen.hidden {
-            opacity: 0;
-            visibility: hidden;
-            z-index: -1;
+        .lang-screen.hidden {
+            display: none !important;
         }
 
-        .lang-container {
+        .lang-box {
             text-align: center;
-            animation: slideUp 0.8s ease;
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .lang-box h1 {
+            font-size: 50px;
+            margin-bottom: 30px;
+            color: #00d4ff;
         }
 
-        .lang-container h1 {
-            font-size: 48px;
+        .lang-box p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: #aaa;
+        }
+
+        .lang-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .lang-btn {
+            padding: 15px 40px;
+            font-size: 16px;
+            background: #00d4ff;
+            color: #0f0f1e;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .lang-btn:hover {
+            background: #0099ff;
+            transform: scale(1.05);
+        }
+
+        .lang-btn:active {
+            transform: scale(0.95);
+        }
+
+        .container {
+            background: #1a1a2e;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.2);
+            border: 1px solid #00d4ff;
+            display: none;
+        }
+
+        .container.show {
+            display: block;
+        }
+
+        h1 {
+            text-align: center;
             color: #00d4ff;
             margin-bottom: 15px;
+            font-size: 35px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: #00d4ff;
+            border-bottom-color: #00d4ff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .app-card {
+            background: #2a2a3e;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #00d4ff;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .app-card:hover {
+            background: #3a3a4e;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .app-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .app-name {
+            font-size: 18px;
+            color: #00d4ff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .app-desc {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .dl-btn {
+            padding: 10px 25px;
+            background: #00d4ff;
+            color: #0f0f1e;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .dl-btn:hover {
+            background: #0099ff;
+            transform: scale(1.05);
+        }
+
+        .dl-btn:active {
+            transform: scale(0.95);
+        }
+
+        .script-box {
+            background: #2a2a3e;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #00d4ff;
+        }
+
+        .script-title {
+            color: #00d4ff;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .script-code {
+            background: #0f0f1e;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #00ff88;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            line-height: 1.5;
+            border: 1px solid #333;
+        }
+
+        .copy-btn {
+            padding: 10px 25px;
+            background: #00d4ff;
+            color: #0f0f1e;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #0099ff;
+            transform: scale(1.05);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .footer strong {
+            color: #00d4ff;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lang-box h1 {
+                font-size: 35px;
+            }
+
+            .lang-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .lang-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Language Selection Screen -->
+    <div class="lang-screen" id="langScreen">
+        <div class="lang-box">
+            <h1>🎮 Atwi</h1>
+            <p>اختر اللغة / Select Language</p>
+            <div class="lang-buttons">
+                <button class="lang-btn" onclick="chooseLanguage('en')">🇬🇧 English</button>
+                <button class="lang-btn" onclick="chooseLanguage('ar')">🇸🇦 العربية</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container" id="mainContainer">
+        <h1 id="mainTitle">🎮 Roblox Executors</h1>
+        <p class="subtitle" id="mainSubtitle">Download Premium Tools</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('apps')" id="appsTabBtn">📱 Apps</button>
+            <button class="tab-btn" onclick="openTab('scripts')" id="scriptsTabBtn">📜 Scripts</button>
+        </div>
+
+        <!-- Apps Tab -->
+        <div class="tab-content active" id="apps">
+            <div class="apps-grid">
+                <div class="app-card">
+                    <div class="app-icon">⚡</div>
+                    <div class="app-name" id="app1Name">Arceus X</div>
+                    <div class="app-desc" id="app1Desc">Professional executor</div>
+                    <a href="https://github.com/SPDMTiahh/Updates/releases/download/2.1.8/Roblox.Arceus.X.NEO.2.1.8.apk" class="dl-btn">Download</a>
+                </div>
+
+                <div class="app-card">
+                    <div class="app-icon">⚙️</div>
+                    <div class="app-name" id="app2Name">Delta Android</div>
+                    <div class="app-desc" id="app2Desc">Android executor</div>
+                    <a href="https://delta.filenetwork.vip/file/Delta-2.718.1110-02.apk" class="dl-btn">Download</a>
+                </div>
+
+                <div class="app-card">
+                    <div class="app-icon">🍎</div>
+                    <div class="app-name" id="app3Name">Delta iOS</div>
+                    <div class="app-desc" id="app3Desc">iOS executor</div>
+                    <a href="itms-services://?action=download-manifest&url=https://delta.bz/manifest.plist" class="dl-btn">Download</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts Tab -->
+        <div class="tab-content" id="scripts">
+            <div class="script-box">
+                <div class="script-title" id="scriptTitle">📝 Atwi Premium Level 8</div>
+                <div class="script-code" id="scriptCode">local p = game.Players.LocalPlayer
+if p.Backpack:FindFirstChild("ANTIXPLOIT") then
+    p.Backpack.ANTIXPLOIT:Remove()
+end
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/SpdmXDev/AtwiPremiumLevel8/main/AtwiPremium8.txt"))()</div>
+                <button class="copy-btn" onclick="copyScript()" id="copyBtn">📋 Copy</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong id="footerCopyright">© 2026 Atwi</strong></p>
+            <p id="footerDesc">Specialized Roblox Executors</p>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                mainTitle: "🎮 Roblox Executors",
+                mainSubtitle: "Download Premium Tools",
+                appsTabBtn: "📱 Apps",
+                scriptsTabBtn: "📜 Scripts",
+                app1Name: "Arceus X",
+                app1Desc: "Professional executor with advanced features",
+                app2Name: "Delta Android",
+                app2Desc: "Powerful executor for Android devices",
+                app3Name: "Delta iOS",
+                app3Desc: "Premium executor for iPhone and iPad",
+                scriptTitle: "📝 Atwi Premium Level 8",
+                copyBtn: "📋 Copy",
+                footerCopyright: "© 2026 Atwi",
+                footerDesc: "Specialized Roblox Executors"
+            },
+            ar: {
+                mainTitle: "🎮 منافذ روبلوكس",
+                mainSubtitle: "حمل الأدوات المتقدمة",
+                appsTabBtn: "📱 التطبيقات",
+                scriptsTabBtn: "📜 النصوص",
+                app1Name: "ارسيوس اكس",
+                app1Desc: "منفذ احترافي مع ميزات متقدمة",
+                app2Name: "دلتا اندرويد",
+                app2Desc: "منفذ قوي لأجهزة الاندرويد",
+                app3Name: "دلتا iOS",
+                app3Desc: "منفذ متميز لأجهزة الآيفون والآيباد",
+                scriptTitle: "📝 Atwi Premium Level 8",
+                copyBtn: "📋 نسخ",
+                footerCopyright: "© 2026 عتوي",
+                footerDesc: "منافذ روبلوكس المتخصصة"
+            }
+        };
+
+        function chooseLanguage(lang) {
+            const langScreen = document.getElementById('langScreen');
+            const mainContainer = document.getElementById('mainContainer');
+
+            langScreen.classList.add('hidden');
+            mainContainer.classList.add('show');
+
+            applyLanguage(lang);
+            localStorage.setItem('selectedLang', lang);
+        }
+
+        function applyLanguage(lang) {
+            const t = translations[lang];
+
+            document.getElementById('mainTitle').textContent = t.mainTitle;
+            document.getElementById('mainSubtitle').textContent = t.mainSubtitle;
+            document.getElementById('appsTabBtn').textContent = t.appsTabBtn;
+            document.getElementById('scriptsTabBtn').textContent = t.scriptsTabBtn;
+            document.getElementById('app1Name').textContent = t.app1Name;
+            document.getElementById('app1Desc').textContent = t.app1Desc;
+            document.getElementById('app2Name').textContent = t.app2Name;
+            document.getElementById('app2Desc').textContent = t.app2Desc;
+            document.getElementById('app3Name').textContent = t.app3Name;
+            document.getElementById('app3Desc').textContent = t.app3Desc;
+            document.getElementById('scriptTitle').textContent = t.scriptTitle;
+            document.getElementById('copyBtn').textContent = t.copyBtn;
+            document.getElementById('footerCopyright').textContent = t.footerCopyright;
+            document.getElementById('footerDesc').textContent = t.footerDesc;
+
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = lang;
+        }
+
+        function openTab(tabName) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-btn');
+
+            contents.forEach(el => el.classList.remove('active'));
+            buttons.forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+
+            if (tabName === 'apps') {
+                document.getElementById('appsTabBtn').classList.add('active');
+            } else {
+                document.getElementById('scriptsTabBtn').classList.add('active');
+            }
+        }
+
+        function copyScript() {
+            const code = document.getElementById('scriptCode').textContent;
+            navigator.clipboard.writeText(code);
+
+            const btn = document.getElementById('copyBtn');
+            const original = btn.textContent;
+            btn.textContent = '✅ Copied!';
+
+            setTimeout(() => {
+                btn.textContent = original;
+            }, 2000);
+        }
+
+        // Check for saved language
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('selectedLang');
+            if (saved) {
+                chooseLanguage(saved);
+            }
+        });
+    </script>
+
+</body>
+</html>            margin-bottom: 15px;
             font-weight: 800;
             letter-spacing: 2px;
         }
