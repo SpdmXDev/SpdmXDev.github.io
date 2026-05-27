@@ -135,15 +135,24 @@
 </div>
 
 <script>
-    // The requested ASCII banner to be placed at the top of every obfuscation
-    const atwiBanner = `--[[ \n\n  _______  __              __ \n |   _   ||  |_ .--.--.--.|__|\n |       ||   _||  |  |  ||  |\n |___|___||____||________||__|\n                              \n\n  _______  __      ___                             __                \n |       ||  |--..'  _|.--.--..-----..----..---.-.|  |_ .-----..----.\n |   -   ||  _  ||   _||  |  ||__ --||  __||  _  ||   _||  _  ||   _|\n |_______||_____||__|  |_____||_____||____||___._||____||_____||__|  \n                                                                     \n                     v1.0.0 http://spdmxdev.github.io\n\n]]--\n\n`;
+    // Custom ASCII banner requested for the top of the obfuscation
+    const atwiBanner = `--[[ \n\n  _______  __              __ \n |   _   ||  |_ .--.--.--.|__|\n |       ||   _||  |  |  ||  |\n |___|___||____||________||__|\n                              \n\n  _______  __      ___                             __                \n |       ||  |--..'  _|.--.--..-----..----..---.-.|  |_ .-----..----.\n |   -   ||  _  ||   _||  |  ||__ --||  __||  _  ||   _||  _  ||   _|\n |_______||_____||__|  |_____||_____||____||___._||____||_____||__|  \n                                                                     \n                     ByteCode by http://spdmxdev.github.io\n\n]]--\n\n`;
+
+    // Helper to generate random string names to prevent static analysis (Deobfuscation)
+    function makeId(length) {
+        let result = '';
+        const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return "_" + result;
+    }
 
     const scriptBox = document.getElementById('scriptBox');
     const btnEnter = document.getElementById('btnEnter');
     const btnCopy = document.getElementById('btnCopy');
     const notification = document.getElementById('copyNotification');
 
-    // Encryption logic when 'Enter' is clicked
     btnEnter.addEventListener('click', () => {
         const rawCode = scriptBox.value;
         
@@ -152,36 +161,44 @@
             return;
         }
 
-        // Generate a random dynamic key so the output layout changes on every click
-        const encryptionKey = Math.floor(Math.random() * 80) + 20;
-        const encryptedBytes = [];
+        // 1. Heavy Bytecode Obfuscation + XOR Encryption Engine
+        const xorKey = Math.floor(Math.random() * 200) + 35; 
+        let hexBytecode = "";
 
-        // Dynamic Char-shifting algorithm
         for (let i = 0; i < rawCode.length; i++) {
-            encryptedBytes.push(rawCode.charCodeAt(i) + encryptionKey);
+            // Apply XOR operation to each character byte
+            let encryptedByte = rawCode.charCodeAt(i) ^ xorKey;
+            // Convert to Hexadecimal format (\xXX)
+            let hex = encryptedByte.toString(16).toUpperCase();
+            if (hex.length < 2) hex = "0" + hex;
+            hexBytecode += "\\" + "x" + hex;
         }
 
-        // Pack the encrypted bytes into a dynamic runtime Virtual Machine loader string
+        // 2. Generate Random Virtual Machine Variable Names (Anti-Decompile)
+        const vm_call = makeId(8);
+        const bytecode_str = makeId(8);
+        const key_num = makeId(8);
+        const un-xor_func = makeId(8);
+        const result_table = makeId(8);
+        const stream_pos = makeId(8);
+        const current_char = makeId(8);
+
+        // 3. Assemble the Advanced Virtualized Runtime Script
         const obfuscatedResult = atwiBanner + 
-`local _atwi_env = getfenv or function() return _ENV end
-local _string_char = string.char
-local _table_concat = table.concat
-local _load_string = loadstring or load
-local _key = ${encryptionKey}
-local _bytecode = {${encryptedBytes.join(', ')}}
-local _output = {}
-
-for _idx = 1, #_bytecode do 
-    _output[_idx] = _string_char(_bytecode[_idx] - _key) 
+`local ${vm_call} = function(${bytecode_str}, ${key_num})
+    local ${result_table} = {}
+    local ${un-xor_func} = string.gsub(${bytecode_str}, ".", function(${current_char})
+        return string.char(string.byte(${current_char}) ~ ${key_num})
+    end)
+    return (loadstring or load)(${un-xor_func})
 end
+return ${vm_call}("${hexBytecode}", ${xorKey})(...);`;
 
-return _load_string(_table_concat(_output))(...);`;
-
-        // Update the text box with the new scrambled format
+        // Output the fully secured, randomized script into the box
         scriptBox.value = obfuscatedResult;
     });
 
-    // Copy to clipboard functionality
+    // Copy to clipboard function
     btnCopy.addEventListener('click', () => {
         if (!scriptBox.value.trim()) {
             alert('There is no text to copy!');
@@ -189,16 +206,15 @@ return _load_string(_table_concat(_output))(...);`;
         }
 
         scriptBox.select();
-        scriptBox.setSelectionRange(0, 99999); // For mobile device compatibility
+        scriptBox.setSelectionRange(0, 99999);
 
         navigator.clipboard.writeText(scriptBox.value).then(() => {
-            // Visual feedback popup
             notification.style.opacity = '1';
             setTimeout(() => {
                 notification.style.opacity = '0';
             }, 2000);
         }).catch(err => {
-            alert('Automatic copy failed. Please select and copy manually.');
+            alert('Copy failed. Please select and copy manually.');
         });
     });
 </script>
